@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= <!--===== CONTACT =====-->
+        <section class="contact section" id="contact">
+            <h2 class="section-title">Contact</h2>
+
+            <div class="contact__container bd-grid">
+                <form action="https://formspree.io/f/mnnvopwb" method="POST">
+                    <input type="text" name="name" placeholder="Name" class="contact__input" required>
+                    <input type="email" name="email" placeholder="Email" class="contact__input" required>
+                    <textarea name="message" placeholder="Your message" cols="30" rows="10" class="contact__input"
+                        required></textarea>
+                    <input type="submit" value="Send" class="contact__button button">
+                </form>
+
+                <!-- Success message -->
+                <p id="form-message" style="display: none; color: green; margin-top: 10px;">Message sent successfully!
+                </p>
+
+                <script>
+                    const form = document.getElementById("contact-form");
+                    const message = document.getElementById("form-message");
+
+                    form.addEventListener("submit", async function (e) {
+                        e.preventDefault(); // prevent default form submission
+
+                        // Basic validation
+                        const name = document.getElementById("name").value.trim();
+                        const email = document.getElementById("email").value.trim();
+                        const messageText = document.getElementById("message").value.trim();
+
+                        if (!name || !email || !messageText) {
+                            alert("Please fill out all fields.");
+                            return;
+                        }
+
+                        if (!validateEmail(email)) {
+                            alert("Please enter a valid email address.");
+                            return;
+                        }
+
+                        // Submit the form using fetch
+                        const formData = new FormData(form);
+
+                        try {
+                            const response = await fetch(form.action, {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    Accept: "application/json",
+                                },
+                            });
+
+                            if (response.ok) {
+                                form.reset(); // Clear the form
+                                message.style.display = "block"; // Show success message
+                            } else {
+                                alert("Oops! There was a problem submitting your form.");
+                            }
+                        } catch (error) {
+                            alert("Error submitting form.");
+                        }
+                    });
+
+                    function validateEmail(email) {
+                        // Basic email regex
+                        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        return re.test(email.toLowerCase());
+                    }
+                </script>
+
+
+            </div>
+        </section>
+    </main>
+
+  , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
